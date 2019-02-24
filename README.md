@@ -4,8 +4,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 # Setup environment
 npm i -g @angular/cli
+
 npm i -g @nativescript/schematics
+
 npm i -g tns-nativescript
+
 npm i -g nativescript-angular-cli
 
 
