@@ -6,24 +6,36 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
 import { BarcelonaModule } from './barcelona/barcelona.module';
+import { LoginComponent } from './login/login.component';
+import { StorageService } from './service/storage.service';
+import * as mobileStorage from 'nativescript-localstorage';
+
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
-// import { NativeScriptFormsModule } from 'nativescript-angular/forms';
+ import { NativeScriptFormsModule } from 'nativescript-angular/forms';
 
 // Uncomment and add to NgModule imports  if you need to use the HTTP wrapper
-// import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
+ import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    LoginComponent,
   ],
   imports: [
     NativeScriptModule,
     AppRoutingModule,
     BarcelonaModule,
+    NativeScriptFormsModule,
+    NativeScriptHttpClientModule
   ],
-  providers: [],
+  providers: [
+   {
+      provide: StorageService,
+      useValue: mobileStorage 
+    }
+  ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

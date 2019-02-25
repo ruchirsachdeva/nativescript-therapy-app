@@ -1,10 +1,10 @@
-<ActionBar title="Barcelona Players" class="action-bar">
+<ActionBar title="App users" class="action-bar">
 </ActionBar>
 
 <StackLayout class="page">
   <ListView [items]="players" class="list-group">
     <ng-template let-player="item">
-      <Label [nsRouterLink]="['/player', player.id]" [text]="player.name"
+      <Label [nsRouterLink]="['/player', player.userId]" [text]="player.username"
       class="list-group-item"></Label>
     </ng-template>
   </ListView>
