@@ -1,0 +1,21 @@
+<ActionBar title="{N} JWT Example"></ActionBar>
+<StackLayout verticalAlignment="center">
+    <Label text="Sign into the application" class="h2 text-center"></Label>
+    <StackLayout class="form">
+        <StackLayout class="input-field">
+            <Label class="label" text="Username:"></Label>
+            <TextField #username class="input input-border" [(ngModel)]="credentials.username" autocorrect="false" autocapitalizationType="none"></TextField>
+        </StackLayout>
+        <StackLayout class="input-field">
+            <Label class="label" text="Password:"></Label>
+            <TextField #password class="input input-border" [(ngModel)]="credentials.password" secure="true" autocorrect="false" autocapitalizationType="none"></TextField>
+        </StackLayout>
+        <StackLayout class="input-field">
+            <Button text="Login" (tap)="login()" class="btn btn-primary btn-active w-full"></Button>
+        </StackLayout>
+    </StackLayout>
+	
+	<Label class="label" text="(patient1/pass) or (patient2/pass) for Patient role."></Label>
+	<Label class="label" text="(doc/pass) Doctor role."></Label>
+	<Label class="label" text="(researcher/pass) for Researcher role."></Label>
+</StackLayout>

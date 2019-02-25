@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Player } from '../player';
+import { TestSession } from '../test-session';
+
 import { PlayerService } from '../player.service';
 
 @Component({
@@ -10,6 +12,9 @@ import { PlayerService } from '../player.service';
 })
 export class PlayerDetailComponent implements OnInit {
   player: Player;
+  
+   testSessionsAsMed: TestSession[];
+    testSessionsAsPatient: TestSession[];
 
   constructor(
     private playerService: PlayerService,
@@ -18,6 +23,17 @@ export class PlayerDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const id = +this.route.snapshot.params['id'];
-    this.player = this.playerService.getPlayer(id);
+    this.playerService.getPlayer(id).subscribe(data => {
+      this.player =  data;
+    });
+	
+	 this.playerService.getTestSessionsByMedId(id).subscribe(data => {
+      this.testSessionsAsMed =  data;
+    });
+	
+	 this.playerService.getTestSessionsByPatientId(id).subscribe(data => {
+      this.testSessionsAsPatient =  data;
+    });
+	
   }
 }

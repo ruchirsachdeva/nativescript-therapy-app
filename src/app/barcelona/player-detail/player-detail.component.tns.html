@@ -1,8 +1,19 @@
 <ActionBar title="Details" class="action-bar"></ActionBar>
 <FlexboxLayout flexDirection="column" class="page">
-  <FlexboxLayout class="m-15">
-    <Label class="h2" [text]="player.id + '. '"></Label>
-    <Label class="h2" [text]="player.name"></Label>
-  </FlexboxLayout>
-  <Label class="h4" [text]="player.role"></Label>
+    <Label  [text]="'UserId = ' + player.userId + '. '"></Label>
+    <Label [text]="'Email = ' + player.email"></Label>
+    <Label  [text]="'Username = ' + player.username"></Label>
+    <Label  [text]="'Role = ' + player.role.name"></Label>
+  
+  <ListView [items]="testSessionsAsMed" class="list-group">
+    <ng-template let-testSession="item">
+      <Label [nsRouterLink]="['/testSession', testSession.testSessionId]" [text]="'TestSessionId = ' + testSession.testSessionId" class="list-group-item"></Label>
+    </ng-template>
+  </ListView>
+  
+   <ListView [items]="testSessionsAsPatient" class="list-group">
+    <ng-template let-testSession="item">
+       <Label [nsRouterLink]="['/testSession', testSession.testSessionId]" [text]="'TestSessionId = ' + testSession.testSessionId" class="list-group-item"></Label>
+    </ng-template>
+  </ListView>
 </FlexboxLayout>

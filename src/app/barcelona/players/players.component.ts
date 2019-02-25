@@ -1,18 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { Player } from '../player';
-import { PlayerService } from '../player.service';
+import {Player} from '../player';
+import {PlayerService} from '../player.service';
 
 @Component({
-  selector: 'app-players',
-  templateUrl: './players.component.html',
+    selector: 'app-players',
+    templateUrl: './players.component.html',
 })
 export class PlayersComponent implements OnInit {
-  players: Player[];
+    players: Player[];
 
-  constructor(private playerService: PlayerService) { }
+    constructor(private playerService: PlayerService) {
+    }
 
-  ngOnInit(): void {
-    this.players = this.playerService.getPlayers();
-  }
+    ngOnInit(): void {
+        this.playerService.getPlayers().subscribe(data => {
+
+            console.log(data);
+            this.players = data;
+        });
+    }
 }
