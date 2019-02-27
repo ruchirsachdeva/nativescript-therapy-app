@@ -14,8 +14,7 @@ import {AuthenticationService} from '../../service/authentication.service';
 export class PlayerDetailComponent implements OnInit {
     player: Player;
 
-    testSessionsAsMed: TestSession[];
-    testSessionsAsPatient: TestSession[];
+    testSessions: TestSession[];
 
     constructor(
         private playerService: PlayerService,
@@ -26,16 +25,8 @@ export class PlayerDetailComponent implements OnInit {
 
     ngOnInit(): void {
         const id = +this.route.snapshot.params['id'];
-        this.playerService.getPlayer(id).subscribe(data => {
-            this.player = data;
-        });
-
-        this.playerService.getTestSessionsByMedId(id).subscribe(data => {
-            this.testSessionsAsMed = data;
-        });
-
-        this.playerService.getTestSessionsByPatientId(id).subscribe(data => {
-            this.testSessionsAsPatient = data;
+        this.playerService.byTherapyId(id).subscribe(data => {
+            this.testSessions = data;
         });
 
     }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {Player} from '../player';
+import {Player, Therapy} from '../player';
 import {PlayerService} from '../player.service';
 import {AuthenticationService} from '../../service/authentication.service';
 
@@ -9,15 +9,15 @@ import {AuthenticationService} from '../../service/authentication.service';
     templateUrl: './players.component.html',
 })
 export class PlayersComponent implements OnInit {
-    players: Player[];
+    therapies: Therapy[];
 
     constructor(private playerService: PlayerService, private authenticationService: AuthenticationService) {
     }
 
     ngOnInit(): void {
-        this.playerService.getPlayers().subscribe(data => {
+        this.playerService.getTherapies().subscribe(data => {
             console.log(data);
-            this.players = data;
+            this.therapies = data;
         });
     }
 

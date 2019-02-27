@@ -1,17 +1,11 @@
-<h3>UserId = {{ player.userId }}</h3>
+<!--<h3>UserId = {{ player.userId }}</h3>
 <h3>Email = {{ player.email }}</h3>
 <h3>Username = {{ player.username }}</h3>
-<h3>Role name = {{ player.role.name }}</h3>
+<h3>Role name = {{ player.role.name }}</h3>-->
 
-<div *ngFor="let testSession of testSessionsAsMed" [routerLink]="['/testSession', testSession.testSessionId]">
+<div *ngFor="let testSession of testSessions" [routerLink]="['/testSession', testSession.testSessionId]">
   <h3>TestSessionId = {{ testSession.testSessionId }}</h3>
   <h3>TestType ={{ testSession.testType }}</h3>
   <h3>DataUrl ={{ testSession.dataUrl }}</h3>
 </div>
 
-
-<div *ngFor="let testSession of testSessionsAsPatient" [routerLink]="['/testSession', testSession.testSessionId]">
-  <h3>TestSessionId = {{ testSession.testSessionId }}</h3>
-  <h3>TestType ={{ testSession.testType }}</h3>
-  <h3>DataUrl ={{ testSession.dataUrl }}</h3>
-</div>
