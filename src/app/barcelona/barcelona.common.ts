@@ -1,19 +1,19 @@
 import { Routes } from '@angular/router';
 
-import { PlayersComponent } from './players/players.component';
-import { PlayerDetailComponent } from './player-detail/player-detail.component';
-import { PlayerService } from './player.service';
+import { TherapiesComponent } from './therapies/therapies.component';
+import { TestSessionsComponent } from './test-sessions/test-sessions.component';
+import { UserService } from './user.service';
 
 export const componentDeclarations: any[] = [
-  PlayersComponent,
-  PlayerDetailComponent,
+  TherapiesComponent,
+  TestSessionsComponent,
 ];
 
 export const providerDeclarations: any[] = [
-  PlayerService
+  UserService
 ];
 
 export const routes: Routes = [
-  { path: 'players', component: PlayersComponent },
-  { path: 'player/:id', component: PlayerDetailComponent },
+  { path: 'therapies', component: TherapiesComponent },
+  { path: 'therapy/:id', component: TestSessionsComponent },
 ];

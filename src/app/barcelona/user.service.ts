@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Player, Therapy} from './player';
 import {TestSession} from './test-session';
-import {HttpClient} from '@angular/common/http';
-import {HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 import {StorageService} from '../service/storage.service';
@@ -10,7 +8,7 @@ import {JsonHttpService} from '../service/json-http.service';
 import {environment} from '../../environments/environment';
 
 @Injectable()
-export class PlayerService {
+export class UserService {
 
     constructor(private storage: StorageService, private http: JsonHttpService) {
     }
