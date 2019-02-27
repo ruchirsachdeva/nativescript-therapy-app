@@ -6,7 +6,7 @@ import {
   componentDeclarations,
   providerDeclarations,
   routes,
-} from './barcelona.common';
+} from './user-therapy.common';
 
 @NgModule({
   imports: [
@@ -23,4 +23,4 @@ import {
     ...providerDeclarations
   ]
 })
-export class BarcelonaModule { }
+export class UserTherapyModule { }

@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 
-import {BarcelonaModule} from './barcelona/barcelona.module';
+import {UserTherapyModule} from './user-therapy/user-therapy.module';
 import {LoginComponent} from './login/login.component';
 import {StorageService} from './service/storage.service';
 import * as mobileStorage from 'nativescript-localstorage';
@@ -28,7 +28,7 @@ import {RegisterComponent} from './register/register.component';
     imports: [
         NativeScriptModule,
         AppRoutingModule,
-        BarcelonaModule,
+        UserTherapyModule,
         NativeScriptFormsModule,
         NativeScriptHttpClientModule
     ],
