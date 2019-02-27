@@ -2,9 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 import {Player} from '../player';
 import {PlayerService} from '../player.service';
-import {StorageService} from "../../service/storage.service";
-import {LoginService} from "../../service/login.service";
-import {Router} from "@angular/router";
+import {AuthenticationService} from '../../service/authentication.service';
 
 @Component({
     selector: 'app-players',
@@ -13,22 +11,19 @@ import {Router} from "@angular/router";
 export class PlayersComponent implements OnInit {
     players: Player[];
 
-    constructor(private playerService: PlayerService, private storageService: StorageService,private router:Router,
-                private loginService:LoginService) {
+    constructor(private playerService: PlayerService, private authenticationService: AuthenticationService) {
     }
 
     ngOnInit(): void {
         this.playerService.getPlayers().subscribe(data => {
-            if(!this.loginService.isAuthenticated()) {
-                this.router.navigate(["/login"]);
-            }
             console.log(data);
             this.players = data;
         });
     }
 
     public logout() {
-        this.storageService.removeItem('jwt');
-        this.router.navigate(["/login"]);
+        this.authenticationService.logout();
     }
+
+
 }

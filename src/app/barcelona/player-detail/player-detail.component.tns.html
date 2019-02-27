@@ -1,4 +1,7 @@
-<ActionBar title="Details" class="action-bar"></ActionBar>
+<ActionBar title="Details" class="action-bar">
+    <ActionItem text="Logout" ios.position="true" (tap)="logout()"></ActionItem>
+</ActionBar>
+
 <FlexboxLayout flexDirection="column" class="page">
     <Label  [text]="'UserId = ' + player.userId + '. '"></Label>
     <Label [text]="'Email = ' + player.email"></Label>

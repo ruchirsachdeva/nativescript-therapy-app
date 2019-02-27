@@ -1,34 +1,31 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
 //import * as Toast from "nativescript-toast";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Router} from '@angular/router';
 
-import "rxjs/Rx";
+import 'rxjs/Rx';
 
 import {StorageService} from '../service/storage.service';
-import {LoginService} from "../service/login.service";
+import {AuthenticationService} from '../service/authentication.service';
 
 @Component({
-    selector: "login",
+    selector: 'login',
     templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {
     credentials: any;
 
-    constructor(private loginService: LoginService, private router: Router) {
+    constructor(private authenticationService: AuthenticationService, private router: Router) {
         this.credentials = {username: '', password: ''};
     }
 
     public ngOnInit() {
-        if(this.loginService.isAuthenticated()) {
-            this.router.navigate(["authenticated"]);
-        }
     }
 
     public login() {
-        this.loginService.authenticate(this.credentials, () => {
+        this.authenticationService.authenticate(this.credentials, () => {
             //     Toast.makeText('authenticated').show();
-            this.router.navigate(["authenticated"]);
+            this.authenticationService.checkAuthentication();
         });
         //      Toast.makeText(error.json().message).show();
         return false;
