@@ -6,7 +6,7 @@ import { PlayerService } from './player.service';
 
 export const componentDeclarations: any[] = [
   PlayersComponent,
-  PlayerDetailComponent
+  PlayerDetailComponent,
 ];
 
 export const providerDeclarations: any[] = [

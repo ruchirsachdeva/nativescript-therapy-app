@@ -10,12 +10,14 @@ import { LoginComponent } from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { StorageService } from './service/storage.service';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

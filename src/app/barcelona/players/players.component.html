@@ -1,5 +1,17 @@
-<h1>App users</h1>
 
-<div *ngFor="let player of players" [routerLink]="['/player', player.userId]">
-  <h3>{{ player.username }}</h3>
-</div>
+<table style="width:100%">
+<tr>
+    <th>Therapy Name</th>
+    <th>Patient</th>
+    <th>Doctor</th>
+    <th>Medicine</th>
+    <th>Dosage</th>
+</tr>
+<tr *ngFor="let therapy of therapies" [routerLink]="['/player', therapy.therapyId]" >
+    <td>{{therapy.therapylist.name}}</td>
+    <td>{{therapy.patient.username}}</td>
+    <td>{{therapy.med.username}}</td>
+    <td>{{therapy.therapylist.medicine.name}}</td>
+    <td>{{therapy.therapylist.dosage}}</td>
+</tr>
+</table>
