@@ -6,7 +6,7 @@ import {
   componentDeclarations,
   providerDeclarations,
   routes,
-} from './barcelona.common';
+} from './user-therapy.common';
 
 @NgModule({
   imports: [
@@ -27,4 +27,4 @@ import {
     NO_ERRORS_SCHEMA
   ]
 })
-export class BarcelonaModule { }
+export class UserTherapyModule { }

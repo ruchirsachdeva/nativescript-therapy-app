@@ -3,11 +3,6 @@
 </ActionBar>
 
 <FlexboxLayout flexDirection="column" class="page">
-    <!--<Label  [text]="'UserId = ' + player.userId + '. '"></Label>
-    <Label [text]="'Email = ' + player.email"></Label>
-    <Label  [text]="'Username = ' + player.username"></Label>
-    <Label  [text]="'Role = ' + player.role.name"></Label>-->
-  
   <ListView [items]="testSessions" class="list-group">
     <ng-template let-testSession="item">
       <Label [nsRouterLink]="['/testSession', testSession.testSessionId]" [text]="'TestSession data url = ' + testSession.dataUrl" class="list-group-item"></Label>

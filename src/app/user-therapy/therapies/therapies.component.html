@@ -7,7 +7,7 @@
     <th>Medicine</th>
     <th>Dosage</th>
 </tr>
-<tr *ngFor="let therapy of therapies" [routerLink]="['/player', therapy.therapyId]" >
+<tr *ngFor="let therapy of therapies" [routerLink]="['/therapy', therapy.therapyId]" >
     <td>{{therapy.therapylist.name}}</td>
     <td>{{therapy.patient.username}}</td>
     <td>{{therapy.med.username}}</td>

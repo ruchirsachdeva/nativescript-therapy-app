@@ -1,4 +1,4 @@
-export interface Player {
+export interface User {
 //  id: number;
 //  name: string;
 //  role: string;
@@ -23,8 +23,8 @@ export interface Role {
 
 export interface Therapy {
     therapyId: string | number;
-    patient: Player;
-    med: Player;
+    patient: User;
+    med: User;
     therapylist: TherapyList;
 }
 

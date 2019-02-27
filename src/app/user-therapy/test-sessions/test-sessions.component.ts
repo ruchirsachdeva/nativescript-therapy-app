@@ -1,23 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
-import {Player} from '../player';
 import {TestSession} from '../test-session';
 
-import {PlayerService} from '../player.service';
+import {UserService} from '../user.service';
 import {AuthenticationService} from '../../service/authentication.service';
 
 @Component({
     selector: 'app-details',
-    templateUrl: './player-detail.component.html',
+    templateUrl: './test-sessions.component.html',
 })
-export class PlayerDetailComponent implements OnInit {
-    player: Player;
-
+export class TestSessionsComponent implements OnInit {
     testSessions: TestSession[];
 
     constructor(
-        private playerService: PlayerService,
+        private userService: UserService,
         private route: ActivatedRoute,
         private authenticationService: AuthenticationService
     ) {
@@ -25,7 +22,7 @@ export class PlayerDetailComponent implements OnInit {
 
     ngOnInit(): void {
         const id = +this.route.snapshot.params['id'];
-        this.playerService.byTherapyId(id).subscribe(data => {
+        this.userService.byTherapyId(id).subscribe(data => {
             this.testSessions = data;
         });
 
