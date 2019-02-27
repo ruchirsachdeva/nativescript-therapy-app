@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Player, Therapy} from './player';
+import {User, Therapy} from './model';
 import {TestSession} from './test-session';
 import {Observable} from 'rxjs';
 
@@ -13,12 +13,12 @@ export class UserService {
     constructor(private storage: StorageService, private http: JsonHttpService) {
     }
 
-    getPlayer(id: number): Observable<Player> {
-        return this.http.get<Player>(`${environment.server}/users/` + id);
+    getUser(id: number): Observable<User> {
+        return this.http.get<User>(`${environment.server}/users/` + id);
     }
 
-    getMe(): Observable<Player> {
-        return this.http.get<Player>(`${environment.server}/api/users/me`);
+    getMe(): Observable<User> {
+        return this.http.get<User>(`${environment.server}/api/users/me`);
     }
 
     getTestSessionsByMedId(id: number): Observable<TestSession[]> {
@@ -44,9 +44,9 @@ export class UserService {
     }
 
 
-    getPlayers(): Observable<Player[]> {
+    getUsers(): Observable<User[]> {
 
-        return this.http.get<Player[]>(`${environment.server}/users`)
+        return this.http.get<User[]>(`${environment.server}/users`)
             .map((data: any) => {
                 return data._embedded.users;
             });

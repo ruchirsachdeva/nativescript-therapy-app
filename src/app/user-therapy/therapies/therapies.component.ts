@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import { Therapy} from '../player';
+import { Therapy} from '../model';
 import {UserService} from '../user.service';
 import {AuthenticationService} from '../../service/authentication.service';
 
