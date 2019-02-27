@@ -18,3 +18,21 @@ export interface Organization {
 export interface Role {
   name?: string;
 }
+
+
+export interface Therapy {
+  therapyId: string|number;
+  patient: Player
+  med: Player
+
+}
+
+export interface TherapyList {
+  name: string;
+  dosage: string
+  medicine: Medicine
+}
+
+export interface Medicine {
+  name: string;
+}

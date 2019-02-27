@@ -6,38 +6,28 @@ import {HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 import { StorageService } from '../service/storage.service';
+import {JsonHttpService} from "../service/json-http.service";
 
 @Injectable()
 export class PlayerService {
 
-  constructor(private storage: StorageService, private http: HttpClient) {
+  constructor(private storage: StorageService, private http: JsonHttpService) {
   }
 
   getPlayer(id: number): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({authorization: 'Bearer ' + this.storage.getItem('jwt'),
-        'content-type': 'application/json'})
-    };
-    return this.http.get('https://pd-social-server.herokuapp.com/users/'+id, httpOptions);
+        return this.http.get('https://pd-social-server.herokuapp.com/users/'+id);
   }
   
   getTestSessionsByMedId(id: number): Observable<TestSession[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({authorization: 'Bearer ' + this.storage.getItem('jwt'),
-        'content-type': 'application/json'})
-    };
-    return this.http.get<TestSession[]>('https://pd-social-server.herokuapp.com/testSessions/search/byMedId?id='+id, httpOptions)
+
+    return this.http.get<TestSession[]>('https://pd-social-server.herokuapp.com/testSessions/search/byMedId?id='+id)
 	 .map((data: any) => {
           return data._embedded.testSessions;
         });
   }
   
   getTestSessionsByPatientId(id: number): Observable<TestSession[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({authorization: 'Bearer ' + this.storage.getItem('jwt'),
-        'content-type': 'application/json'})
-    };
-    return this.http.get<TestSession[]>('https://pd-social-server.herokuapp.com/testSessions/search/byPatientId?id='+id, httpOptions)
+    return this.http.get<TestSession[]>('https://pd-social-server.herokuapp.com/testSessions/search/byPatientId?id='+id)
 	 .map((data: any) => {
           return data._embedded.testSessions;
         });
@@ -45,11 +35,8 @@ export class PlayerService {
 
 
   getPlayers(): Observable<Player[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({authorization: 'Bearer ' + this.storage.getItem('jwt'),
-        'content-type': 'application/json'})
-    };
-    return this.http.get<Player[]>('https://pd-social-server.herokuapp.com/users', httpOptions)
+
+    return this.http.get<Player[]>('https://pd-social-server.herokuapp.com/users')
         .map((data: any) => {
           return data._embedded.users;
         });

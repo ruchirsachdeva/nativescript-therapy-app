@@ -16,12 +16,14 @@ import * as mobileStorage from 'nativescript-localstorage';
 
 // Uncomment and add to NgModule imports  if you need to use the HTTP wrapper
  import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     NativeScriptModule,
@@ -34,7 +36,7 @@ import * as mobileStorage from 'nativescript-localstorage';
    {
       provide: StorageService,
       useValue: mobileStorage 
-    }
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]

@@ -1,46 +1,38 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 //import * as Toast from "nativescript-toast";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 
 import "rxjs/Rx";
 
-import { StorageService } from '../service/storage.service';
+import {StorageService} from '../service/storage.service';
+import {LoginService} from "../service/login.service";
 
 @Component({
     selector: "login",
     templateUrl: './login.component.html',
 })
-export class LoginComponent {
-    credentials = {username: '', password: ''};
+export class LoginComponent implements OnInit {
+    credentials: any;
 
-    constructor(private storage: StorageService, private http: HttpClient, private router: Router) {
+    constructor(private loginService: LoginService, private router: Router) {
+        this.credentials = {username: '', password: ''};
+    }
+
+    public ngOnInit() {
+        if(this.loginService.isAuthenticated()) {
+            this.router.navigate(["authenticated"]);
+        }
     }
 
     public login() {
-        const headerss = new HttpHeaders(this.credentials ? {
-               'content-type': 'application/json'
-            } : {
-                authorization: 'Bearer ' + this.storage.getItem('jwt'),
-                'content-type': 'application/json'
-            });
+        this.loginService.authenticate(this.credentials, () => {
+            //     Toast.makeText('authenticated').show();
+            this.router.navigate(["authenticated"]);
+        });
+        //      Toast.makeText(error.json().message).show();
+        return false;
 
-        const httpOptions = {
-            headers: headerss
-        };
-        this.http.post("https://pd-social-server.herokuapp.com/api/auth", JSON.stringify({
-            username: this.credentials.username,
-            password: this.credentials.password
-        }), httpOptions)
-            .subscribe(result => {
-                //     Toast.makeText('authenticated').show();
-                console.log('auth response.....');
-                console.log(result['token']);
-                this.storage.setItem('jwt', result['token']);
-                this.router.navigate(["authenticated"], {queryParams: {jwt: result['token']}});
-            }, error => {
-                //      Toast.makeText(error.json().message).show();
-            });
     }
 
 }
