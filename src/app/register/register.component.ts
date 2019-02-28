@@ -1,25 +1,30 @@
 import {Component} from '@angular/core';
 import {Location} from '@angular/common';
 import {AuthenticationService} from '../service/authentication.service';
+import {LocationService} from '../service/geo-location/location.service';
 
 @Component({
-    selector: 'ns-register',
+    selector: 'app-register',
     templateUrl: 'register.component.html',
+    providers: [LocationService]
 })
 export class RegisterComponent {
 
     public input: any;
 
-    public constructor(private location: Location, private authService: AuthenticationService) {
+    constructor(private location: Location, private authService: AuthenticationService, private geoLocationService: LocationService) {
         this.input = {
             username: '',
             name: '',
             email: '',
-            password: ''
+            password: '',
+            latitude: 0,
+            longitude: 0
         };
+        this.register();
     }
 
-    public register() {
+    private signup() {
         if (this.input.username && this.input.name && this.input.email && this.input.password) {
             this.authService.create(this.input, () => {
                 //     Toast.makeText('authenticated').show();
@@ -31,6 +36,21 @@ export class RegisterComponent {
             // Toast (new SnackBar()).simple("All Fields Required!");
         }
     }
+
+    public register() {
+        this.geoLocationService.getGeoLocation().then(loc => {
+            if (loc) {
+                console.log('Current location is: ' + loc.latitude + ',' + loc.longitude);
+                this.input.latitude = loc.latitude;
+                this.input.longitude = loc.longitude;
+            }
+            this.signup();
+        }, function (e) {
+            this.signup();
+            console.log('Error: ' + e.message);
+        });
+    }
+
 
     public goBack() {
         this.location.back();

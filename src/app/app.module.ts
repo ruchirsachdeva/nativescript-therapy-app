@@ -11,6 +11,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {StorageService} from './service/storage.service';
 import {RegisterComponent} from './register/register.component';
+import {LocationService} from './service/geo-location/location.service';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,7 @@ import {RegisterComponent} from './register/register.component';
         FormsModule,
         UserTherapyModule,
     ],
-    providers: [StorageService],
+    providers: [StorageService, LocationService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
