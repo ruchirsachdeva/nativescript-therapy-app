@@ -1,12 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-//import * as Toast from "nativescript-toast";
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Router} from '@angular/router';
-
-import 'rxjs/Rx';
-
-import {StorageService} from '../service/storage.service';
 import {AuthenticationService} from '../service/authentication.service';
+import {ToastService} from '../service/messaging/toast.service';
 
 @Component({
     selector: 'login',
@@ -15,7 +9,7 @@ import {AuthenticationService} from '../service/authentication.service';
 export class LoginComponent implements OnInit {
     credentials: any;
 
-    constructor(private authenticationService: AuthenticationService, private router: Router) {
+    constructor(private authenticationService: AuthenticationService, private toast: ToastService) {
         this.credentials = {username: '', password: ''};
     }
 
@@ -24,12 +18,15 @@ export class LoginComponent implements OnInit {
 
     public login() {
         this.authenticationService.authenticate(this.credentials, () => {
-            //     Toast.makeText('authenticated').show();
-            this.authenticationService.checkAuthentication();
-        });
-        //      Toast.makeText(error.json().message).show();
-        return false;
-
+                this.toast.showSuccess('User successfully authenticated', 'Login successful');
+                this.authenticationService.checkAuthentication();
+                return true;
+            },
+            () => {
+                this.toast.showError('Please try again..', 'Login unsuccessful');
+                return false;
+            }
+        );
     }
 
 }

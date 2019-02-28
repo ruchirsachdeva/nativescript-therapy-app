@@ -2,17 +2,18 @@ import {Component} from '@angular/core';
 import {Location} from '@angular/common';
 import {AuthenticationService} from '../service/authentication.service';
 import {LocationService} from '../service/geo-location/location.service';
+import {ToastService} from '../service/messaging/toast.service';
 
 @Component({
     selector: 'app-register',
     templateUrl: 'register.component.html',
-    providers: [LocationService]
 })
 export class RegisterComponent {
 
     public input: any;
 
-    constructor(private location: Location, private authService: AuthenticationService, private geoLocationService: LocationService) {
+    constructor(private location: Location, private authService: AuthenticationService, private geoLocationService: LocationService,
+                private toast: ToastService) {
         this.input = {
             username: '',
             name: '',
@@ -21,18 +22,16 @@ export class RegisterComponent {
             latitude: 0,
             longitude: 0
         };
-        this.register();
     }
 
     private signup() {
         if (this.input.username && this.input.name && this.input.email && this.input.password) {
             this.authService.create(this.input, () => {
-                //     Toast.makeText('authenticated').show();
-                // this.authenticationService.checkAuthentication();
+                this.toast.showSuccess('User successfully registered', 'Registration successful');
                 this.authService.checkAuthentication();
             });
         } else {
-            // Toast (new SnackBar()).simple("All Fields Required!");
+            this.toast.showError('Please register again with correct data..', 'Registration unsuccessful');
         }
     }
 

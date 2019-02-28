@@ -12,6 +12,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {StorageService} from './service/storage.service';
 import {RegisterComponent} from './register/register.component';
 import {LocationService} from './service/geo-location/location.service';
+import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastService} from './service/messaging/toast.service';
 
 @NgModule({
     declarations: [
@@ -22,12 +25,14 @@ import {LocationService} from './service/geo-location/location.service';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
         UserTherapyModule,
+        ToastrModule.forRoot(),
     ],
-    providers: [StorageService, LocationService],
+    providers: [StorageService, LocationService, ToastService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
