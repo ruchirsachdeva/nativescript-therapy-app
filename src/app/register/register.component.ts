@@ -29,9 +29,8 @@ export class RegisterComponent {
             this.authService.create(this.input, () => {
                 //     Toast.makeText('authenticated').show();
                 // this.authenticationService.checkAuthentication();
-                this.location.back();
+                this.authService.checkAuthentication();
             });
-            // this.storageService.setItem('account', JSON.stringify(this.input));
         } else {
             // Toast (new SnackBar()).simple("All Fields Required!");
         }
