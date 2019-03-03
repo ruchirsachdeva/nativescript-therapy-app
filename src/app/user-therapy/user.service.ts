@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {User, Therapy} from './model';
 import {TestSession} from './test-session';
 import {Observable} from 'rxjs';
+import 'rxjs/Rx';
 
 import {StorageService} from '../service/storage.service';
 import {JsonHttpService} from '../service/json-http.service';

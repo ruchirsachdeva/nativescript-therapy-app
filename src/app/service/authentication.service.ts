@@ -5,7 +5,7 @@ import {HttpHeaders} from '@angular/common/http';
 import {JsonHttpService} from './json-http.service';
 import {Router} from '@angular/router';
 
-import { environment } from '../../environments/environment';
+import {environment} from '../../environments/environment';
 
 
 @Injectable({
@@ -17,22 +17,23 @@ export class AuthenticationService {
     }
 
 
-    authenticate(credentials, callback) {
-        console.log('auth');
+    authenticate(credentials, successCallback, errorCallback) {
         this.http.post(`${environment.server}/api/auth`, JSON.stringify({
             username: credentials.username,
             password: credentials.password
         })).subscribe(response => {
-            console.log('auth response.....');
-            console.log(response['token']);
-            localStorage.setItem('jwt', response['token']);
-            return callback && callback();
-        });
+                console.log('auth response.....');
+                console.log(response['token']);
+                localStorage.setItem('jwt', response['token']);
+                return successCallback && successCallback();
+            },
+            error => {
+                return errorCallback && errorCallback();
+            });
 
     }
 
     create(form, callback) {
-        console.log('create');
         this.http.post(`${environment.server}/api/auth/create`, JSON.stringify(form)).subscribe(response => {
             console.log('auth response.....');
             console.log(response['token']);

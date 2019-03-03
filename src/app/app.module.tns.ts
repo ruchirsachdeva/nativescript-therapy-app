@@ -17,6 +17,8 @@ import {NativeScriptFormsModule} from 'nativescript-angular/forms';
 // Uncomment and add to NgModule imports  if you need to use the HTTP wrapper
 import {NativeScriptHttpClientModule} from 'nativescript-angular/http-client';
 import {RegisterComponent} from './register/register.component';
+import {LocationService} from './service/geo-location/location.service.tns';
+import {ToastService} from './service/messaging/toast.service.tns';
 
 @NgModule({
     declarations: [
@@ -37,6 +39,8 @@ import {RegisterComponent} from './register/register.component';
             provide: StorageService,
             useValue: mobileStorage
         },
+        LocationService,
+        ToastService,
     ],
     bootstrap: [AppComponent],
     schemas: [NO_ERRORS_SCHEMA]

@@ -33,10 +33,7 @@ export class JsonHttpService {
   }
 
   post<T>(url: string, body: any, options: any = {}): Observable<T> {
-    console.log('hello');
     let opt = mergeAuthToken(this.storage.getItem('jwt'), options);
-    console.log('opt');
-    console.log(opt);
     return this.http.post<T>(url, body, opt);
   }
 
