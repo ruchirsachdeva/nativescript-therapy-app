@@ -3,6 +3,8 @@ import {Location} from '@angular/common';
 import {AuthenticationService} from '../service/authentication.service';
 import {LocationService} from '../service/geo-location/location.service';
 import {ToastService} from '../service/messaging/toast.service';
+import {VideoRecorder, Options as VideoRecorderOptions} from 'nativescript-videorecorder';
+
 
 @Component({
     selector: 'app-register',
@@ -22,6 +24,21 @@ export class RegisterComponent {
             latitude: 0,
             longitude: 0
         };
+
+        const options: VideoRecorderOptions = {
+            hd: true,
+            saveToGallery: false,
+            explanation: 'Why do i need this permission'
+        };
+        const videorecorder = new VideoRecorder(options);
+
+        videorecorder.record(options).then((data) => {
+            console.log('success...');
+            console.log(data.file);
+        }).catch((err) => {
+            console.log('error....');
+            console.log(err);
+        });
     }
 
     private signup() {
