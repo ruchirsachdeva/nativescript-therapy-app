@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {StorageService} from './storage.service';
 import {HttpHeaders} from '@angular/common/http';
 import {JsonHttpService} from './json-http.service';
@@ -61,4 +61,22 @@ export class AuthenticationService {
         this.router.navigate(['/login']);
     }
 
+
+    media(file: { data: any; status: string }) {
+
+        const req = {
+            b64content: file.data
+        };
+
+        console.log('posting');
+        this.http.post<TwitterResponse>('https://twitter-media-app.herokuapp.com/api/twitter/media', req).subscribe(response => {
+            console.log('response = ' + response);
+        });
+    }
+
+}
+
+export interface TwitterResponse {
+    data: any;
+    resp: any;
 }

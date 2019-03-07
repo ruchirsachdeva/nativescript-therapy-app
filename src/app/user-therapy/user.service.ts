@@ -7,6 +7,8 @@ import 'rxjs/Rx';
 import {StorageService} from '../service/storage.service';
 import {JsonHttpService} from '../service/json-http.service';
 import {environment} from '../../environments/environment';
+import {HttpParams} from '@angular/common/http';
+import {File} from 'tns-core-modules/file-system';
 
 @Injectable()
 export class UserService {
@@ -57,6 +59,7 @@ export class UserService {
 
         return this.http.get<Therapy[]>(`${environment.server}/api/users/therapies`);
     }
+
 
 
 }

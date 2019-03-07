@@ -3,7 +3,11 @@ import {Location} from '@angular/common';
 import {AuthenticationService} from '../service/authentication.service';
 import {LocationService} from '../service/geo-location/location.service';
 import {ToastService} from '../service/messaging/toast.service';
-import {VideoRecorder, Options as VideoRecorderOptions} from 'nativescript-videorecorder';
+import * as camera from 'nativescript-camera';
+import * as imageModule from 'tns-core-modules/ui/image';
+import {File} from 'tns-core-modules/file-system';
+import {UserService} from '../user-therapy/user.service';
+import {fromAsset} from 'tns-core-modules/image-source';
 
 
 @Component({
@@ -13,6 +17,7 @@ import {VideoRecorder, Options as VideoRecorderOptions} from 'nativescript-video
 export class RegisterComponent {
 
     public input: any;
+    private base64: any;
 
     constructor(private location: Location, private authService: AuthenticationService, private geoLocationService: LocationService,
                 private toast: ToastService) {
@@ -25,21 +30,53 @@ export class RegisterComponent {
             longitude: 0
         };
 
-        const options: VideoRecorderOptions = {
-            hd: true,
-            saveToGallery: false,
-            explanation: 'Why do i need this permission'
-        };
-        const videorecorder = new VideoRecorder(options);
 
-        videorecorder.record(options).then((data) => {
-            console.log('success...');
-            console.log(data.file);
-        }).catch((err) => {
-            console.log('error....');
-            console.log(err);
+    }
+
+    private publish() {
+        console.log('this.base64');
+        console.log(this.base64);
+        this.authService.media({
+            data: this.base64,
+            status: ''
         });
     }
+
+    public photo() {
+        this.photoPromise().then(res => {
+            this.base64 = res;
+            console.log(this.base64);
+        });
+    }
+
+
+    private photoPromise() {
+        const options = {width: 100, height: 100, keepAspectRatio: false};
+
+        return new Promise(resolve => {
+            camera.requestPermissions()
+                .then(() => {
+                    camera.takePicture(options)
+                        .then(function (imageAsset) {
+                            console.log('Result is an image asset instance');
+                            const image = new imageModule.Image();
+                            image.src = imageAsset;
+// convert ImageAsset to ImageSource
+                            fromAsset(imageAsset).then(res => {
+                                const myImageSource = res;
+                                resolve(myImageSource.toBase64String('jpeg', 100));
+                            });
+
+                        }).catch(function (err) {
+                        console.log('Error -> ' + err.message);
+                    });
+                })
+                .catch(e => {
+                    console.log('Error requesting permission');
+                });
+        });
+    }
+
 
     private signup() {
         if (this.input.username && this.input.name && this.input.email && this.input.password) {
