@@ -6,6 +6,8 @@ import {JsonHttpService} from './json-http.service';
 import {Router} from '@angular/router';
 
 import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
+import {Tweet} from '../tweet';
 
 
 @Injectable({
@@ -62,17 +64,23 @@ export class AuthenticationService {
     }
 
 
-    media(file: { data: any; status: string }) {
+    media(b64content: any): Observable<Tweet> {
 
         const req = {
-            b64content: file.data
+            b64content: b64content
         };
 
         console.log('posting');
-        this.http.post<TwitterResponse>('https://twitter-media-app.herokuapp.com/api/twitter/media', req).subscribe(response => {
-            console.log('response = ' + response);
-        });
+        return this.http.post<Tweet>('https://twitter-media-app.herokuapp.com/api/my/media', req);
     }
+
+
+    home(since?: string) {
+        const params = '?accessToken=' + localStorage.getItem('accessToken')
+            + '&accessTokenSecret=' + localStorage.getItem('accessTokenSecret') + `&since=${since}`;
+        return this.http.get<TwitterResponse>('https://twitter-media-app.herokuapp.com/api/my/search' + params);
+    }
+
 
 }
 

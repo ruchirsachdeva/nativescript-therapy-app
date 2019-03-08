@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
-import {AuthenticationService} from '../service/authentication.service';
+import {AuthenticationService, TwitterResponse} from '../service/authentication.service';
 import {LocationService} from '../service/geo-location/location.service';
 import {ToastService} from '../service/messaging/toast.service';
 import * as camera from 'nativescript-camera';
@@ -8,47 +8,110 @@ import * as imageModule from 'tns-core-modules/ui/image';
 import {File} from 'tns-core-modules/file-system';
 import {UserService} from '../user-therapy/user.service';
 import {fromAsset} from 'tns-core-modules/image-source';
+import {Tweet} from '../tweet';
 
+import {ObservableArray, ChangedData} from 'tns-core-modules/data/observable-array';
 
 @Component({
     selector: 'app-register',
     templateUrl: 'register.component.html',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit, OnDestroy {
 
     public input: any;
-    private base64: any;
+    inflight = false;
+    tweets: Array<Tweet> = new Array();
+    ids = [];
+    timer;
+    since = '';
+    private myObservableArray: ObservableArray<String> = new ObservableArray();
 
     constructor(private location: Location, private authService: AuthenticationService, private geoLocationService: LocationService,
                 private toast: ToastService) {
         this.input = {
-            username: '',
-            name: '',
-            email: '',
-            password: '',
             latitude: 0,
             longitude: 0
         };
-
-
+        this.geoLocation();
     }
 
-    private publish() {
-        console.log('this.base64');
-        console.log(this.base64);
-        this.authService.media({
-            data: this.base64,
-            status: ''
+
+    ngOnInit() {
+        this.getTweets();
+        this.timer = setInterval(() => this.getTweets(), 61000);
+    }
+
+    ngOnDestroy() {
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
+    }
+
+
+    getTweets() {
+        this.myObservableArray = new ObservableArray();
+        this.authService.home(this.since).subscribe(tweets => {
+            tweets.data.forEach(tweet => {
+                console.log(this.hasPhoto(tweet));
+                if (this.hasPhoto(tweet)) {
+                    console.log(JSON.stringify(tweet));
+                }
+                console.log('**************');
+                if (this.ids.indexOf(tweet.id_str) < 0) {
+                    this.ids.push(tweet.id_str);
+                    this.tweets.unshift(tweet);
+                }
+                if (this.hasPhoto(tweet)) {
+                    this.myObservableArray.push(this.getPhoto(tweet));
+                }
+            });
+            this.since = this.tweets[0].id_str;
+            this.cleanUp();
+
         });
     }
+
+    cleanUp() {
+        if (this.tweets.length > 1000) {
+            this.tweets.splice(1000);
+            this.ids.splice(1000);
+        }
+    }
+
+    public hasPhoto(tweet: Tweet) {
+        if (tweet.entities.media
+            && tweet.entities.media.length
+            && tweet.entities.media[0].type === 'photo') {
+            return true;
+        }
+        return false;
+    }
+
+    public getPhoto(tweet: Tweet) {
+        if (tweet.entities.media
+            && tweet.entities.media.length
+            && tweet.entities.media[0].type === 'photo') {
+            return tweet.entities.media[0].media_url_https;
+        }
+        return null;
+    }
+
 
     public photo() {
         this.photoPromise().then(res => {
-            this.base64 = res;
-            console.log(this.base64);
+            this.publish(res);
         });
     }
 
+    private publish(base64) {
+        console.log('base64');
+        console.log(base64);
+        this.authService.media(base64)
+            .subscribe((response: Tweet) => {
+                this.getTweets();
+                console.log('data =  ' + response);
+            });
+    }
 
     private photoPromise() {
         const options = {width: 100, height: 100, keepAspectRatio: false};
@@ -77,29 +140,13 @@ export class RegisterComponent {
         });
     }
 
-
-    private signup() {
-        if (this.input.username && this.input.name && this.input.email && this.input.password) {
-            this.authService.create(this.input, () => {
-                this.toast.showSuccess('User successfully registered', 'Registration successful');
-                this.authService.checkAuthentication();
-            });
-        } else {
-            this.toast.showError('Please register again with correct data..', 'Registration unsuccessful');
-        }
-    }
-
-    public register() {
+    public geoLocation() {
         this.geoLocationService.getGeoLocation().then(loc => {
             if (loc) {
                 console.log('Current location is: ' + loc.latitude + ',' + loc.longitude);
                 this.input.latitude = loc.latitude;
                 this.input.longitude = loc.longitude;
             }
-            this.signup();
-        }, function (e) {
-            this.signup();
-            console.log('Error: ' + e.message);
         });
     }
 
