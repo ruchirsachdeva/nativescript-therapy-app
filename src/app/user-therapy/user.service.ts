@@ -14,10 +14,6 @@ export class UserService {
     constructor(private storage: StorageService, private http: JsonHttpService) {
     }
 
-    getUser(id: number): Observable<User> {
-        return this.http.get<User>(`${environment.server}/users/` + id);
-    }
-
     getMe(): Observable<User> {
         return this.http.get<User>(`${environment.server}/api/users/me`);
     }
@@ -44,14 +40,6 @@ export class UserService {
             });
     }
 
-
-    getUsers(): Observable<User[]> {
-
-        return this.http.get<User[]>(`${environment.server}/users`)
-            .map((data: any) => {
-                return data._embedded.users;
-            });
-    }
 
     getOngoingTherapiesForPatient(patient: string): Observable<Therapy[]> {
         return this.http.get<Therapy[]>(`${environment.server}/therapies/search/byPatientOngoing?patient=` + patient)
@@ -85,4 +73,25 @@ export class UserService {
     getAvailableHours(id: number): Observable<Duration[]> {
         return this.http.get<Duration[]>(`${environment.server}/api/users/hours/` + id);
     }
+
+    getSession(id: number): Observable<TestSession> {
+        return this.http.get<TestSession>(`${environment.server}/testSessions/` + id);
+    }
+
+
+    requestSession(therapyId: number, requestHours: any): Observable<any> {
+        console.log('requesting' + therapyId + '/' + requestHours);
+        return this.http.post(`${environment.server}/api/sessions/request/` + therapyId + '/' + requestHours, null);
+
+    }
+
+    bookSession(sessionId: number, from: string, to: string): Observable<any> {
+        const duration: Duration = {
+            startTime: from,
+            endTime: to
+        };
+        return this.http.post(`${environment.server}/api/sessions/book/` + sessionId, duration);
+    }
+
+
 }

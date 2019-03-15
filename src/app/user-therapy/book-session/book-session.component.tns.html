@@ -1,0 +1,26 @@
+<ActionBar title="Book session" class="action-bar">
+    <ActionItem text="Logout" ios.position="true" (tap)="logout()"></ActionItem>
+</ActionBar>
+
+<StackLayout class="page"> <!-- , iconSource: 'res://icon' -->
+    <DatePicker #dd (loaded)="onPickerLoaded($event)" (dateChange)="onDateChanged($event)"
+                verticalAlignment="center"></DatePicker>
+
+    <ListView [items]="availableSlots" class="list-group">
+        <ng-template let-slot="item" let-i="index" let-third="third" let-header="header" let-footer="footer">
+            <GridLayout rows="* auto" columns="*" class="list-group-item active" style="border:1;">
+                <StackLayout (tap)="bookSession(slot.startTime, slot.endTime)">
+                    <Label text="Slot : {{i}}"
+                           class="label-item"></Label>
+                    <Label text="{{slot.startTime}}"
+                           class="label-item"></Label>
+                    <Label text="{{slot.endTime}}"
+                           class="label-item"></Label>
+                </StackLayout>
+            </GridLayout>
+        </ng-template>
+    </ListView>
+</StackLayout>
+
+
+

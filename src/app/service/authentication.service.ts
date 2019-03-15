@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {StorageService} from './storage.service';
-import {HttpHeaders} from '@angular/common/http';
 import {JsonHttpService} from './json-http.service';
 import {Router} from '@angular/router';
 
@@ -67,7 +66,7 @@ export class AuthenticationService {
     }
 
     logout() {
-        this.storage.removeItem('jwt');
+        this.storage.clear();
         this.router.navigate(['/login']);
     }
 

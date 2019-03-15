@@ -49,7 +49,6 @@ export interface TestSession {
     duration: Duration;
     testSessionId: string | number;
     testType?: string | number;
-    dataUrl?: string;
     therapy?: Therapy;
     notes?: Note[];
     requestedHours: number;

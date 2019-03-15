@@ -6,6 +6,11 @@ import {Duration, TestSession, User} from '../model';
 import {UserService} from '../user.service';
 import {AuthenticationService} from '../../service/authentication.service';
 import {ValueList} from 'nativescript-drop-down';
+import {DatePicker} from 'tns-core-modules/ui/date-picker';
+import {TimePicker} from 'tns-core-modules/ui/time-picker';
+import {StorageService} from '../../service/storage.service';
+import * as dialogs from 'tns-core-modules/ui/dialogs';
+import {ToastService} from '../../service/messaging/toast.service';
 
 @Component({
     selector: 'app-details',
@@ -17,47 +22,76 @@ export class TestSessionsComponent implements OnInit {
     historicalSessions: TestSession[];
     med: User;
 
-    public availableHours: Array<Duration>;
-    public selectedIndex: 1;
+    public therapyId;
+
+    requestedHours: any;
 
 
     constructor(
         private userService: UserService,
         private route: ActivatedRoute,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private storage: StorageService,
+        private toast: ToastService
     ) {
     }
 
     ngOnInit(): void {
-        const id = +this.route.snapshot.params['id'];
-        this.userService.getRequestedSessions(id).subscribe(data => {
+        this.therapyId = +this.route.snapshot.params['id'];
+        this.userService.getRequestedSessions(this.therapyId).subscribe(data => {
             this.requestedSessions = data;
             if (this.med === null) {
                 this.med = this.requestedSessions.pop().therapy.med;
             }
         });
-        this.userService.getOngoingSessions(id).subscribe(data => {
+        this.userService.getOngoingSessions(this.therapyId).subscribe(data => {
             this.ongoingSessions = data;
             if (this.med === null) {
                 this.med = this.ongoingSessions.pop().therapy.med;
             }
         });
-        this.userService.getHistoricalSessions(id).subscribe(data => {
+        this.userService.getHistoricalSessions(this.therapyId).subscribe(data => {
             this.historicalSessions = data;
             if (this.med === null) {
                 this.med = this.historicalSessions.pop().therapy.med;
             }
         });
 
-        this.userService.getAvailableHours(id).subscribe(data => {
-            this.availableHours = [];
-            data.forEach(duration =>
-                this.availableHours.push(duration));
-        });
+    }
 
+
+    public shouldAddSession() {
+        return this.isMed() && !this.hasUpcomingSessions() && !this.hasRequestedSessions();
+    }
+
+    public isMed() {
+        return this.storage.getItem('patient') === 'false';
     }
 
     public logout() {
         this.authenticationService.logout();
     }
+
+    public requestSession() {
+        dialogs.action({
+            message: 'Request session hours',
+            cancelButtonText: 'Cancel',
+            actions: ['1', '2', '3', '4']
+        }).then(result => {
+            this.requestedHours = result;
+            this.userService.requestSession(this.therapyId, this.requestedHours)
+                .subscribe(() => this.toast.showSuccess('Session request successfully created', 'Request session'));
+        });
+    }
+
+
+    private hasRequestedSessions() {
+        return this.requestedSessions && this.requestedSessions.length > 0;
+    }
+
+    private hasUpcomingSessions() {
+        return this.ongoingSessions && this.ongoingSessions.length > 0;
+    }
+
+
 }

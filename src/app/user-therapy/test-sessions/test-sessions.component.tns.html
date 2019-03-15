@@ -1,20 +1,14 @@
-<ActionBar title="Details" class="action-bar">
-    <ActionItem text="Logout" ios.position="true" (tap)="logout()"></ActionItem>
+<ActionBar title="Sessions" class="action-bar">
+    <ActionItem *ngIf="shouldAddSession()"  text="Start session" (tap)="requestSession()" android.systemIcon="ic_menu_add"
+                android.position="actionBarIfRoom"></ActionItem>
+    <ActionItem text="Logout" android.position="actionBarIfRoom" (tap)="logout()"></ActionItem>
+
 </ActionBar>
 
-<FlexboxLayout flexDirection="column" class="page">
-    <ListView [items]="testSessions" class="list-group">
-        <ng-template let-testSession="item">
-            <Label [nsRouterLink]="['/testSession', testSession.testSessionId]"
-                   [text]="'TestSession data url = ' + testSession.dataUrl" class="list-group-item"></Label>
-        </ng-template>
-    </ListView>
-
-</FlexboxLayout>
-
-
-<TabView id="tabViewContainer"> 
-    <StackLayout class="page" *tabItem="{title: 'Requested'}"> <!-- , iconSource: 'res://icon' -->
+<TabView id="tabViewContainer">
+    <ng-container *ngIf="!isMed()">
+    <StackLayout class="page" *tabItem="{title: 'Requested'}">
+        <!-- , iconSource: 'res://icon' -->
         <ListView [items]="requestedSessions" class="list-group">
             <ng-template let-testSession="item">
                 <GridLayout rows="* auto" columns="*" class="list-group-item active" style="border:1;">
@@ -23,20 +17,17 @@
                                class="label-item"></Label>
                         <Label *ngIf="testSession.therapy.notes" text="{{testSession.therapy.notes.length}} Notes"
                                class="label-item"></Label>
-                        <DropDown #dd
-                                  backroundColor="red"
-                                  [items]="availableHours"
-                                  row="0"
-                                  colSpan="2"></DropDown>
+
                         <AbsoluteLayout>
-                            <Button class="btn btn-primary" text="Confirm" [width]="110" left="0" top="5"></Button>
-                            <Button class="btn btn-primary" text="Decline" [width]="110" left="120" top="5"></Button>
+                            <Button class="btn btn-primary" [nsRouterLink]="['/session', testSession.testSessionId]"
+                                    text="Book time" [width]="110" left="0" top="5"></Button>
                         </AbsoluteLayout>
                     </StackLayout>
                 </GridLayout>
             </ng-template>
         </ListView>
     </StackLayout>
+    </ng-container>
     <StackLayout class="page" *tabItem="{title: 'Upcoming'}"> <!-- , iconSource: 'res://icon' -->
         <ListView [items]="ongoingSessions" class="list-group">
             <ng-template let-testSession="item">

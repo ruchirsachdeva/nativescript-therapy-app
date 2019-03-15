@@ -7,6 +7,7 @@ import {
   providerDeclarations,
   routes,
 } from './user-therapy.common';
+import { BookSessionComponent } from './book-session/book-session.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import {
     RouterModule
   ],
   declarations: [
-    ...componentDeclarations
+    ...componentDeclarations,
+    BookSessionComponent
   ],
   providers: [
     ...providerDeclarations
