@@ -1,17 +1,25 @@
 export interface User {
 //  id: number;
-//  name: string;
 //  role: string;
-    userId: string|number;
+    userId: string | number;
     email?: string;
     username?: string;
+    firstName: string;
     role?: Role;
     organization?: Organization;
     lat?: string;
     longitude?: string;
 }
 
+
+export function isPatient(user: User) {
+    return user.role.name === 'patient';
+}
+
+type MyFunctionType = (role: Role) => boolean;
+
 export interface Organization {
+    organizationId: string | number;
     name?: string;
 }
 
@@ -20,22 +28,34 @@ export interface Role {
 }
 
 
-
 export interface Therapy {
     therapyId: string | number;
     patient: User;
     med: User;
-    therapylist: TherapyList;
+    duration: Duration;
 }
 
-export interface TherapyList {
-    therapyListId: string | number;
-    name: string;
-    dosage: string;
-    medicine: Medicine;
+
+interface Note {
+    noteId: string | number;
+    note?: string;
+    testSessionId: string | number;
 }
 
-export interface Medicine {
-    medicineId: string | number;
-    name: string;
+export interface TestSession {
+//  id: number;
+//  name: string;
+//  role: string;
+    duration: Duration;
+    testSessionId: string | number;
+    testType?: string | number;
+    dataUrl?: string;
+    therapy?: Therapy;
+    notes?: Note[];
+    requestedHours: number;
+}
+
+export interface Duration {
+    startTime?: string;
+    endTime?: string;
 }

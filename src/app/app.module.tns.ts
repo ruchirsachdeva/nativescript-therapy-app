@@ -13,12 +13,12 @@ import * as mobileStorage from 'nativescript-localstorage';
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 import {NativeScriptFormsModule} from 'nativescript-angular/forms';
-
 // Uncomment and add to NgModule imports  if you need to use the HTTP wrapper
 import {NativeScriptHttpClientModule} from 'nativescript-angular/http-client';
 import {RegisterComponent} from './register/register.component';
 import {LocationService} from './service/geo-location/location.service.tns';
 import {ToastService} from './service/messaging/toast.service.tns';
+import {DropDownModule} from 'nativescript-drop-down/angular';
 
 @NgModule({
     declarations: [
@@ -32,7 +32,8 @@ import {ToastService} from './service/messaging/toast.service.tns';
         AppRoutingModule,
         UserTherapyModule,
         NativeScriptFormsModule,
-        NativeScriptHttpClientModule
+        NativeScriptHttpClientModule,
+        DropDownModule
     ],
     providers: [
         {

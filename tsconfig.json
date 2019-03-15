@@ -19,7 +19,9 @@
         "baseUrl": ".",
         "paths": {
             "~/*": [
-                "src/*"
+                "src/*",
+                "./node_modules/tns-core-modules/*",
+                "./node_modules/*"
             ]
         }
     },

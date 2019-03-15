@@ -3,10 +3,75 @@
 </ActionBar>
 
 <FlexboxLayout flexDirection="column" class="page">
-  <ListView [items]="testSessions" class="list-group">
-    <ng-template let-testSession="item">
-      <Label [nsRouterLink]="['/testSession', testSession.testSessionId]" [text]="'TestSession data url = ' + testSession.dataUrl" class="list-group-item"></Label>
-    </ng-template>
-  </ListView>
+    <ListView [items]="testSessions" class="list-group">
+        <ng-template let-testSession="item">
+            <Label [nsRouterLink]="['/testSession', testSession.testSessionId]"
+                   [text]="'TestSession data url = ' + testSession.dataUrl" class="list-group-item"></Label>
+        </ng-template>
+    </ListView>
 
 </FlexboxLayout>
+
+
+<TabView id="tabViewContainer"> 
+    <StackLayout class="page" *tabItem="{title: 'Requested'}"> <!-- , iconSource: 'res://icon' -->
+        <ListView [items]="requestedSessions" class="list-group">
+            <ng-template let-testSession="item">
+                <GridLayout rows="* auto" columns="*" class="list-group-item active" style="border:1;">
+                    <StackLayout>
+                        <Label text="{{testSession.requestedHours}} Hours session"
+                               class="label-item"></Label>
+                        <Label *ngIf="testSession.therapy.notes" text="{{testSession.therapy.notes.length}} Notes"
+                               class="label-item"></Label>
+                        <DropDown #dd
+                                  backroundColor="red"
+                                  [items]="availableHours"
+                                  row="0"
+                                  colSpan="2"></DropDown>
+                        <AbsoluteLayout>
+                            <Button class="btn btn-primary" text="Confirm" [width]="110" left="0" top="5"></Button>
+                            <Button class="btn btn-primary" text="Decline" [width]="110" left="120" top="5"></Button>
+                        </AbsoluteLayout>
+                    </StackLayout>
+                </GridLayout>
+            </ng-template>
+        </ListView>
+    </StackLayout>
+    <StackLayout class="page" *tabItem="{title: 'Upcoming'}"> <!-- , iconSource: 'res://icon' -->
+        <ListView [items]="ongoingSessions" class="list-group">
+            <ng-template let-testSession="item">
+                <GridLayout rows="* auto" columns="*" class="list-group-item active" style="border:1;">
+                    <StackLayout [nsRouterLink]="['/testSession', testSession.testSessionId]">
+                        <Label text="{{testSession.requestedHours}} Hours session"
+                               class="label-item"></Label>
+                        <Label *ngIf="testSession.therapy.notes" text="{{testSession.therapy.notes.length}} Notes"
+                               class="label-item"></Label>
+                        <AbsoluteLayout>
+                            <Button class="btn btn-primary" text="Notes" [width]="90" left="0" top="5"></Button>
+                            <Button class="btn btn-primary" text="Join session" [width]="200" left="100"
+                                    top="5"></Button>
+                        </AbsoluteLayout>
+                    </StackLayout>
+                </GridLayout>
+            </ng-template>
+        </ListView>
+    </StackLayout>
+    <StackLayout class="page" *tabItem="{title: 'Historical'}">
+        <ListView [items]="historicalSessions" class="list-group">
+            <ng-template let-testSession="item">
+                <GridLayout rows="* auto" columns="*" class="list-group-item active" style="border:1;">
+                    <StackLayout [nsRouterLink]="['/testSession', testSession.testSessionId]">
+                        <Label text="{{testSession.requestedHours}} Hours session"
+                               class="label-item"></Label>
+                        <Label *ngIf="testSession.therapy.notes" text="{{testSession.therapy.notes.length}} Notes"
+                               class="label-item"></Label>
+                        <AbsoluteLayout>
+                            <Button class="btn btn-primary" text="Notes" [width]="90" left="0" top="5"></Button>
+                            <Button class="btn btn-primary" text="Video" [width]="90" left="100" top="5"></Button>
+                        </AbsoluteLayout>
+                    </StackLayout>
+                </GridLayout>
+            </ng-template>
+        </ListView>
+    </StackLayout>
+</TabView>

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {User, Therapy} from './model';
-import {TestSession} from './test-session';
+import {User, Therapy, Duration} from './model';
+import {TestSession} from './model';
 import {Observable} from 'rxjs';
 import 'rxjs/Rx';
 
@@ -22,23 +22,23 @@ export class UserService {
         return this.http.get<User>(`${environment.server}/api/users/me`);
     }
 
-    getTestSessionsByMedId(id: number): Observable<TestSession[]> {
-
-        return this.http.get<TestSession[]>(`${environment.server}/testSessions/search/byMedId?id=` + id)
+    getRequestedSessions(id: number): Observable<TestSession[]> {
+        return this.http.get<TestSession[]>(`${environment.server}/testSessions/search/byTherapyIdRequested?id=` + id)
             .map((data: any) => {
                 return data._embedded.testSessions;
             });
     }
 
-    getTestSessionsByPatientId(id: number): Observable<TestSession[]> {
-        return this.http.get<TestSession[]>(`${environment.server}/testSessions/search/byPatientId?id=` + id)
+
+    getOngoingSessions(id: number): Observable<TestSession[]> {
+        return this.http.get<TestSession[]>(`${environment.server}/testSessions/search/byTherapyIdUpcoming?id=` + id)
             .map((data: any) => {
                 return data._embedded.testSessions;
             });
     }
 
-    byTherapyId(id: number): Observable<TestSession[]> {
-        return this.http.get<TestSession[]>(`${environment.server}/testSessions/search/byTherapyId?id=` + id)
+    getHistoricalSessions(id: number): Observable<TestSession[]> {
+        return this.http.get<TestSession[]>(`${environment.server}/testSessions/search/byTherapyIdHistory?id=` + id)
             .map((data: any) => {
                 return data._embedded.testSessions;
             });
@@ -53,10 +53,36 @@ export class UserService {
             });
     }
 
-    getTherapies(): Observable<Therapy[]> {
+    getOngoingTherapiesForPatient(patient: string): Observable<Therapy[]> {
+        return this.http.get<Therapy[]>(`${environment.server}/therapies/search/byPatientOngoing?patient=` + patient)
+            .map((data: any) => {
+                return data._embedded.therapies;
+            });
+    }
 
-        return this.http.get<Therapy[]>(`${environment.server}/api/users/therapies`);
+    getHistoricalTherapiesForPatient(patient: string): Observable<Therapy[]> {
+        return this.http.get<Therapy[]>(`${environment.server}/therapies/search/byPatientHistory?patient=` + patient)
+            .map((data: any) => {
+                return data._embedded.therapies;
+            });
+    }
+
+    getOngoingTherapiesForMed(med: string): Observable<Therapy[]> {
+        return this.http.get<Therapy[]>(`${environment.server}/therapies/search/byMedOngoing?med=` + med)
+            .map((data: any) => {
+                return data._embedded.therapies;
+            });
+    }
+
+    getHistoricalTherapiesForMed(med: string): Observable<Therapy[]> {
+        return this.http.get<Therapy[]>(`${environment.server}/therapies/search/byMedHistory?med=` + med)
+            .map((data: any) => {
+                return data._embedded.therapies;
+            });
     }
 
 
+    getAvailableHours(id: number): Observable<Duration[]> {
+        return this.http.get<Duration[]>(`${environment.server}/api/users/hours/` + id);
+    }
 }

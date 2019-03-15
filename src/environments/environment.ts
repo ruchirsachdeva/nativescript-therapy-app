@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  server : 'https://pd-social-server.herokuapp.com'
+  server : 'https://therapy-app-server.herokuapp.com'
 };
 
 /*

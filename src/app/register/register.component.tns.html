@@ -6,6 +6,10 @@
         <StackLayout margin="10" verticalAlignment="center">
             <StackLayout class="form" padding="15" backgroundColor="#FFFFFF">
                 <StackLayout class="input-field">
+                    <Label class="h3 m-15" [text]="input.roleName" textWrap="true" row="0" col="0"></Label>
+                    <Switch class="m-15" checked="false" (checkedChange)="onFirstChecked($event)"></Switch>
+                </StackLayout>
+                <StackLayout class="input-field">
                     <Label text="Username" class="label font-weight-bold m-b-5"></Label>
                     <TextField class="input" [(ngModel)]="input.username"></TextField>
                     <StackLayout class="hr-light"></StackLayout>
@@ -24,6 +28,14 @@
                     <Label text="Password" class="label font-weight-bold m-b-5"></Label>
                     <TextField secure="true" class="input" [(ngModel)]="input.password"></TextField>
                     <StackLayout class="hr-light"></StackLayout>
+                </StackLayout>
+                <StackLayout class="input-field">
+                    <DropDown #dd
+                              backroundColor="red"
+                              [items]="items"
+                              [(ngModel)]="input.selectedIndex"
+                              row="0"
+                              colSpan="2"></DropDown>
                 </StackLayout>
                 <Button class="btn btn-primary w-full" text="Register" (tap)="register()"></Button>
                 <Label (tap)="goBack()" text="Already a member? Login here." class="text-center footnote"></Label>

@@ -6,6 +6,8 @@ import {JsonHttpService} from './json-http.service';
 import {Router} from '@angular/router';
 
 import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
+import {Organization} from '../user-therapy/model';
 
 
 @Injectable({
@@ -41,6 +43,14 @@ export class AuthenticationService {
             return callback && callback();
         });
 
+    }
+
+
+    getOrganizations(): Observable<Organization[]> {
+        return this.http.get<Organization[]>(`${environment.server}/organizations/search/findDistinctBy`)
+            .map((data: any) => {
+                return data._embedded.organizations;
+            });
     }
 
 

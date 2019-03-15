@@ -1,14 +1,45 @@
 <ActionBar title="Therapy list" class="action-bar">
-  <ActionItem text="Logout" ios.position="true" (tap)="logout()"></ActionItem>
+    <ActionItem text="Logout" ios.position="true" (tap)="logout()"></ActionItem>
 </ActionBar>
 
-<StackLayout class="page">
-  <ListView [items]="therapies" class="list-group">
-    <ng-template let-therapy="item">
-      <GridLayout rows="* auto" columns="*" class="list-group-item active" style="border:1;">
-      <Label [nsRouterLink]="['/therapy', therapy.therapyId]" [text]="therapy.therapylist.name"
-      class="list-group-item"></Label>
-      </GridLayout>
-    </ng-template>
-  </ListView>
-</StackLayout>
+
+<TabView id="tabViewContainer">
+    <StackLayout class="page" *tabItem="{title: 'Ongoing'}"> <!-- , iconSource: 'res://icon' -->
+        <ListView [items]="ongoingTherapies" class="list-group">
+            <ng-template let-therapy="item">
+                <GridLayout rows="* auto" columns="*" class="list-group-item active" style="border:1;">
+                    <StackLayout [nsRouterLink]="['/therapy', therapy.therapyId]">
+                        <Label [text]="therapy.organization.name"
+                               class="label-item"></Label>
+                        <Label text="Patient : {{therapy.patient.firstName}}"
+                               class="label-item"></Label>
+                        <Label text="Therapist : {{therapy.med.firstName}}"
+                               class="label-item"></Label>
+                        <Button class="btn btn-primary w-full" text="View Sessions"
+                                [nsRouterLink]="['/therapy', therapy.therapyId]"></Button>
+                    </StackLayout>
+                </GridLayout>
+
+            </ng-template>
+        </ListView>
+    </StackLayout>
+    <StackLayout class="page" *tabItem="{title: 'Historical'}">
+        <ListView [items]="historicalTherapies" class="list-group">
+            <ng-template let-therapy="item">
+                <GridLayout rows="* auto" columns="*" class="list-group-item active" style="border:1;">
+                    <StackLayout [nsRouterLink]="['/therapy', therapy.therapyId]">
+                        <Label [text]="therapy.organization.name"
+                               class="label-item"></Label>
+                        <Label text="Patient : {{therapy.patient.firstName}}"
+                               class="label-item"></Label>
+                        <Label text="Therapist : {{therapy.med.firstName}}"
+                               class="label-item"></Label>
+                        <Button  class="btn btn-primary" text="View Report"
+                                [nsRouterLink]="['/therapy', therapy.therapyId]"></Button>
+                    </StackLayout>
+
+                </GridLayout>
+            </ng-template>
+        </ListView>
+    </StackLayout>
+</TabView>
