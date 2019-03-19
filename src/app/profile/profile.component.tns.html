@@ -1,0 +1,33 @@
+<ActionBar title="Resgister user">
+    <NavigationButton text="Back" ios.position="left"></NavigationButton>
+</ActionBar>
+<GridLayout backgroundColor="#CCCCCC">
+    <ScrollView>
+        <StackLayout margin="10" verticalAlignment="center">
+            <StackLayout class="form" padding="15" backgroundColor="#FFFFFF">
+                <StackLayout class="input-field">
+                    <Image src="{{ user.imageSource }}" stretch="none" ></Image>
+                </StackLayout>
+                <StackLayout class="input-field">
+                    <Label text="Role" class="label font-weight-bold m-b-5"></Label>
+                    <Label class="h3 m-15" [text]="user.role.name" textWrap="true"></Label>
+                </StackLayout>
+                <StackLayout class="input-field">
+                    <Label text="Username" class="label font-weight-bold m-b-5"></Label>
+                    <Label class="h3 m-15" [text]="user.username" textWrap="true"></Label>
+                    <StackLayout class="hr-light"></StackLayout>
+                </StackLayout>
+                <StackLayout class="input-field">
+                    <Label text="Name" class="label font-weight-bold m-b-5"></Label>
+                    <Label class="h3 m-15" [text]="user.firstName" textWrap="true"></Label>
+                    <StackLayout class="hr-light"></StackLayout>
+                </StackLayout>
+                <StackLayout class="input-field">
+                    <Label text="Email" class="label font-weight-bold m-b-5"></Label>
+                    <Label class="h3 m-15" [text]="user.email" textWrap="true"></Label>
+                    <StackLayout class="hr-light"></StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>

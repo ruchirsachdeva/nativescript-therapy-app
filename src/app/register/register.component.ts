@@ -7,6 +7,9 @@ import {SelectedIndexChangedEventData, ValueList} from 'nativescript-drop-down';
 import {ObservableArray, ChangedData} from 'tns-core-modules/data/observable-array';
 import {Switch} from 'tns-core-modules/ui/switch';
 
+import * as camera from 'nativescript-camera';
+import * as imageModule from 'tns-core-modules/ui/image';
+import {fromAsset, fromBase64, ImageSource} from 'tns-core-modules/image-source';
 @Component({
     selector: 'app-register',
     templateUrl: 'register.component.html',
@@ -27,7 +30,9 @@ export class RegisterComponent {
             longitude: 0,
             roleName: 'PATIENT',
             selectedIndex: 1,
-            organizationId: null
+            organizationId: null,
+            base64: null,
+            imageSource: ''
         };
 
         this.authService.getOrganizations().subscribe(data => {
@@ -84,6 +89,47 @@ export class RegisterComponent {
         }, function (e) {
             this.signup();
             console.log('Error: ' + e.message);
+        });
+    }
+
+    public photo() {
+        this.photoPromise().then(res => {
+            this.publish(res);
+        });
+    }
+
+    private publish(base64) {
+        console.log('base64');
+        console.log(base64);
+        this.input.base64 = base64;
+        this.input.imageSource = 'data:image/png;base64,'+base64;
+    }
+
+
+    private photoPromise() {
+        const options = {width: 100, height: 100, keepAspectRatio: false};
+
+        return new Promise(resolve => {
+            camera.requestPermissions()
+                .then(() => {
+                    camera.takePicture(options)
+                        .then(function (imageAsset) {
+                            console.log('Result is an image asset instance');
+                            const image = new imageModule.Image();
+                            image.src = imageAsset;
+// convert ImageAsset to ImageSource
+                            fromAsset(imageAsset).then(res => {
+                                const myImageSource = res;
+                                resolve(myImageSource.toBase64String('jpeg', 100));
+                            });
+
+                        }).catch(function (err) {
+                        console.log('Error -> ' + err.message);
+                    });
+                })
+                .catch(e => {
+                    console.log('Error requesting permission');
+                });
         });
     }
 

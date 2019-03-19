@@ -19,6 +19,7 @@ import {RegisterComponent} from './register/register.component';
 import {LocationService} from './service/geo-location/location.service.tns';
 import {ToastService} from './service/messaging/toast.service.tns';
 import {DropDownModule} from 'nativescript-drop-down/angular';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import {DropDownModule} from 'nativescript-drop-down/angular';
         HomeComponent,
         LoginComponent,
         RegisterComponent,
+        ProfileComponent,
     ],
     imports: [
         NativeScriptModule,

@@ -1,3 +1,4 @@
+import {ImageSource} from "tns-core-modules/image-source";
 export interface User {
 //  id: number;
 //  role: string;
@@ -9,6 +10,8 @@ export interface User {
     organization?: Organization;
     lat?: string;
     longitude?: string;
+    base64?: string
+    imageSource?: string
 }
 
 

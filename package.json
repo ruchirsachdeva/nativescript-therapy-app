@@ -3,7 +3,7 @@
   "nativescript": {
     "id": "org.nativescript.nativescripttherapyapp",
     "tns-android": {
-      "version": "5.2.0"
+      "version": "5.1.0"
     }
   },
   "version": "0.0.0",
@@ -21,8 +21,8 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^7.2.7",
-    "@angular/common": "^7.2.6",
+    "@angular/animations": "^7.2.0",
+    "@angular/common": "^7.2.0",
     "@angular/compiler": "~7.2.0",
     "@angular/core": "~7.2.0",
     "@angular/forms": "~7.2.0",
@@ -34,9 +34,11 @@
     "css-loader": "^1.0.1",
     "i": "^0.3.6",
     "nativescript-angular": "~7.2.0",
-    "nativescript-drop-down": "^4.0.1",
+    "nativescript-camera": "^4.2.0",
+    "nativescript-drop-down": "^5.0.0",
     "nativescript-feedback": "^1.3.6",
     "nativescript-geolocation": "^4.5.0",
+    "nativescript-google-maps-sdk": "^2.7.0",
     "nativescript-localstorage": "^2.0.0",
     "nativescript-theme-core": "~1.0.4",
     "ngx-toastr": "^9.1.2",
@@ -44,7 +46,7 @@
     "reflect-metadata": "~0.1.12",
     "rxjs": "~6.3.3",
     "rxjs-compat": "~6.3.3",
-    "tns-core-modules": "~5.2.0",
+    "tns-core-modules": "^5.1.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

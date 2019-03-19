@@ -15,6 +15,7 @@ import {LocationService} from './service/geo-location/location.service';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastService} from './service/messaging/toast.service';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -22,6 +23,7 @@ import {ToastService} from './service/messaging/toast.service';
         HomeComponent,
         LoginComponent,
         RegisterComponent,
+        ProfileComponent,
     ],
     imports: [
         BrowserModule,
