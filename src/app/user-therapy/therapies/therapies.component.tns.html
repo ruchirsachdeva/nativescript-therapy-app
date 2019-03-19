@@ -1,4 +1,8 @@
 <ActionBar title="Therapies" class="action-bar">
+    <ActionItem text="My profile"  [nsRouterLink]="['/profile']"
+                android.position="popup"></ActionItem>
+    <ActionItem text="My map"  [nsRouterLink]="['/map']"
+                android.position="popup"></ActionItem>
     <ActionItem text="Logout" ios.position="true" (tap)="logout()"></ActionItem>
 
 </ActionBar>
@@ -12,14 +16,12 @@
                     <StackLayout [nsRouterLink]="['/therapy', therapy.therapyId]">
                         <Label [text]="therapy.organization.name"
                                class="label-item"></Label>
-                        <Label text="Patient : {{therapy.patient.firstName}}"
+                        <Label text="Patient : {{therapy.patient.username}}"
                                class="label-item"></Label>
-                        <Label text="Therapist : {{therapy.med.firstName}}"
+                        <Label text="Therapist : {{therapy.med.username}}"
                                class="label-item"></Label>
                         <Button class="btn btn-primary w-full" text="View Sessions"
                                 [nsRouterLink]="['/therapy', therapy.therapyId]"></Button>
-                        <Button class="btn btn-primary w-full" text="View profile"
-                                [nsRouterLink]="['/profile']"></Button>
                     </StackLayout>
                 </GridLayout>
 
@@ -33,9 +35,9 @@
                     <StackLayout [nsRouterLink]="['/therapy', therapy.therapyId]">
                         <Label [text]="therapy.organization.name"
                                class="label-item"></Label>
-                        <Label text="Patient : {{therapy.patient.firstName}}"
+                        <Label text="Patient : {{therapy.patient.username}}"
                                class="label-item"></Label>
-                        <Label text="Therapist : {{therapy.med.firstName}}"
+                        <Label text="Therapist : {{therapy.med.username}}"
                                class="label-item"></Label>
                         <Button  class="btn btn-primary" text="View Report"
                                 [nsRouterLink]="['/therapy', therapy.therapyId]"></Button>

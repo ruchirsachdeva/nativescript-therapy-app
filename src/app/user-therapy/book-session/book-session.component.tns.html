@@ -1,4 +1,8 @@
 <ActionBar title="Book session" class="action-bar">
+    <ActionItem text="My profile"  [nsRouterLink]="['/profile']"
+                android.position="popup"></ActionItem>
+    <ActionItem text="My map"  [nsRouterLink]="['/map']"
+                android.position="popup"></ActionItem>
     <ActionItem text="Logout" ios.position="true" (tap)="logout()"></ActionItem>
 </ActionBar>
 
