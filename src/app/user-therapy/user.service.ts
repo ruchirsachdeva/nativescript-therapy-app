@@ -85,6 +85,12 @@ export class UserService {
 
     }
 
+    endSession(sessionId: number): Observable<any> {
+        console.log('requesting' + sessionId);
+        return this.http.post(`${environment.server}/api/sessions/end/` + sessionId, null);
+
+    }
+
     bookSession(sessionId: number, from: string, to: string): Observable<any> {
         const duration: Duration = {
             startTime: from,

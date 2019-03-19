@@ -1,0 +1,11 @@
+<ActionBar title="Sessions" class="action-bar">
+    <ActionItem *ngIf="shouldAddSession()"  text="Start session" (tap)="requestSession()" android.systemIcon="ic_menu_add"
+                android.position="actionBarIfRoom"></ActionItem>
+    <ActionItem text="My profile"  [nsRouterLink]="['/profile']"
+                android.position="popup"></ActionItem>
+    <ActionItem text="My map"  [nsRouterLink]="['/map']"
+                android.position="popup"></ActionItem>
+    <ActionItem text="Logout" android.position="actionBarIfRoom" (tap)="logout()"></ActionItem>
+
+</ActionBar>
+<WebView src="https://zoom.us/j/3996014867"></WebView>

@@ -8,6 +8,7 @@ import {
   routes,
 } from './user-therapy.common';
 import { BookSessionComponent } from './book-session/book-session.component';
+import { JoinSessionComponent } from './join-session/join-session.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { BookSessionComponent } from './book-session/book-session.component';
   ],
   declarations: [
     ...componentDeclarations,
-    BookSessionComponent
+    BookSessionComponent,
+    JoinSessionComponent
   ],
   providers: [
     ...providerDeclarations

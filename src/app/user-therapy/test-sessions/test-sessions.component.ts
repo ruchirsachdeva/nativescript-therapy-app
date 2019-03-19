@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {Duration, TestSession, User} from '../model';
 
@@ -11,6 +11,7 @@ import {TimePicker} from 'tns-core-modules/ui/time-picker';
 import {StorageService} from '../../service/storage.service';
 import * as dialogs from 'tns-core-modules/ui/dialogs';
 import {ToastService} from '../../service/messaging/toast.service';
+import * as utils from "tns-core-modules/utils/utils";
 
 @Component({
     selector: 'app-details',
@@ -32,7 +33,7 @@ export class TestSessionsComponent implements OnInit {
         private route: ActivatedRoute,
         private authenticationService: AuthenticationService,
         private storage: StorageService,
-        private toast: ToastService
+        private toast: ToastService, private router: Router
     ) {
     }
 
@@ -82,6 +83,16 @@ export class TestSessionsComponent implements OnInit {
             this.userService.requestSession(this.therapyId, this.requestedHours)
                 .subscribe(() => this.toast.showSuccess('Session request successfully created', 'Request session'));
         });
+    }
+
+    public endSession(sessionId) {
+        console.log('endsession'+sessionId );
+        this.userService.endSession(sessionId)
+            .subscribe(() => this.toast.showSuccess('Session successfully ended', 'SessionEnded'));
+    }
+
+    public openZoomSession() {
+        this.router.navigate(['/joinsession']);
     }
 
 

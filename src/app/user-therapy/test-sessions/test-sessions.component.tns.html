@@ -42,9 +42,10 @@
                         <Label *ngIf="testSession.therapy.notes" text="{{testSession.therapy.notes.length}} Notes"
                                class="label-item"></Label>
                         <AbsoluteLayout>
-                            <Button class="btn btn-primary" text="Notes" [width]="90" left="0" top="5"></Button>
-                            <Button class="btn btn-primary" text="Join session" [width]="200" left="100"
-                                    top="5"></Button>
+                            <Button class="btn btn-primary" text="Join session" [width]="150" left="0"
+                                    top="5"  [nsRouterLink]="['/joinsession']"></Button>
+                            <Button class="btn btn-primary" text="End session" [width]="150" left="160"
+                                    top="5" (tap) ="endSession(testSession.testSessionId)"></Button>
                         </AbsoluteLayout>
                     </StackLayout>
                 </GridLayout>
