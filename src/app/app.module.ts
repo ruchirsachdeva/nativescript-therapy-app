@@ -16,6 +16,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastService} from './service/messaging/toast.service';
 import { ProfileComponent } from './profile/profile.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import { ProfileComponent } from './profile/profile.component';
         LoginComponent,
         RegisterComponent,
         ProfileComponent,
+        MapComponent,
     ],
     imports: [
         BrowserModule,

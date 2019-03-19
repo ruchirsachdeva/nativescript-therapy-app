@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "~/app/user-therapy/user.service";
 import {User} from "~/app/user-therapy/model";
 import {fromBase64} from "tns-core-modules/image-source";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-profile',
@@ -12,7 +13,7 @@ export class ProfileComponent implements OnInit {
 
     user: User;
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService, private router: Router) {
     }
 
     ngOnInit() {
@@ -24,5 +25,11 @@ export class ProfileComponent implements OnInit {
 
         });
     }
+
+
+    map() {
+        this.router.navigate(['/map']);
+    }
+
 
 }

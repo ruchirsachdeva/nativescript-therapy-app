@@ -5,6 +5,7 @@ import {TestSessionsComponent} from './test-sessions/test-sessions.component';
 import {UserService} from './user.service';
 import {BookSessionComponent} from './book-session/book-session.component';
 import {ProfileComponent} from "~/app/profile/profile.component";
+import {MapComponent} from "~/app/map/map.component";
 
 export const componentDeclarations: any[] = [
     TherapiesComponent,
@@ -20,4 +21,6 @@ export const routes: Routes = [
     {path: 'therapy/:id', component: TestSessionsComponent},
     {path: 'session/:id', component: BookSessionComponent},
     {path: 'profile', component: ProfileComponent},
+    {path: 'map', component: MapComponent},
+
 ];
